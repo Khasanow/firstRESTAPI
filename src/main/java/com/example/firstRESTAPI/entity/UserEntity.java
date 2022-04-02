@@ -1,9 +1,7 @@
 package com.example.firstRESTAPI.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class UserEntity {
@@ -12,6 +10,9 @@ public class UserEntity {
     private Long id;
     private String username;
     private String password;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<ToDoEntity> todos;
 
     public UserEntity(/*Long id, String username, String password*/) {
         //this.id = id;
@@ -29,6 +30,14 @@ public class UserEntity {
 
     public String getUsername() {
         return username;
+    }
+
+    public List<ToDoEntity> getTodos() {
+        return todos;
+    }
+
+    public void setTodos(List<ToDoEntity> todos) {
+        this.todos = todos;
     }
 
     public void setUsername(String username) {

@@ -1,27 +1,29 @@
-package com.example.firstRESTAPI.entity;
+package com.example.firstRESTAPI.model;
 
+import com.example.firstRESTAPI.entity.ToDoEntity;
 
-import javax.persistence.*;
-
-@Entity
-public class ToDoEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Todo {
     private Long id;
     private String title;
     private Boolean completed;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
+    public Todo() {
 
-    public ToDoEntity(/*Long id, String title, Boolean completed, UserEntity user*/) {
+    }
+
+    public static Todo toModel(ToDoEntity entity){
+        Todo model = new Todo();
+        model.setId(entity.getId());
+        model.setCompleted(entity.getCompleted());
+        model.setTitle(entity.getTitle());
+        return model;
+    }
+
+//    public Todo(Long id, String title, Boolean completed) {
 //        this.id = id;
 //        this.title = title;
 //        this.completed = completed;
-//        this.user = user;
-    }
+//    }
 
     public Long getId() {
         return id;
@@ -45,13 +47,5 @@ public class ToDoEntity {
 
     public void setCompleted(Boolean completed) {
         this.completed = completed;
-    }
-
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UserEntity user) {
-        this.user = user;
     }
 }
